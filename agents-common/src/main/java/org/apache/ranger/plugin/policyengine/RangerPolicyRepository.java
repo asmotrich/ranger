@@ -226,8 +226,6 @@ public class RangerPolicyRepository {
             LOG.debug("RangerPolicyRepository : building policy-repository for service[" + serviceName + "], and zone:[" + zoneName + "] with auditMode[" + auditModeEnum + "]");
         }
 
-        init(options);
-
         if (StringUtils.isEmpty(zoneName)) {
             this.contextEnrichers = buildContextEnrichers(options);
             this.auditPolicyEvaluators = buildAuditPolicyEvaluators(servicePolicies.getServiceConfig());
@@ -235,6 +233,8 @@ public class RangerPolicyRepository {
             this.contextEnrichers = null;
             this.auditPolicyEvaluators = Collections.emptyList();
         }
+
+        init(options);
 
         if (options.disableTrieLookupPrefilter) {
             policyResourceTrie      = null;
@@ -280,8 +280,6 @@ public class RangerPolicyRepository {
             LOG.debug("RangerPolicyRepository : building tag-policy-repository for tag service:[" + serviceName +"], with auditMode[" + auditModeEnum +"]");
         }
 
-        init(options);
-
         if (StringUtils.isEmpty(zoneName)) {
             this.contextEnrichers = buildContextEnrichers(options);
             this.auditPolicyEvaluators = buildAuditPolicyEvaluators(tagPolicies.getServiceConfig());
@@ -289,6 +287,8 @@ public class RangerPolicyRepository {
             this.contextEnrichers = null;
             this.auditPolicyEvaluators = Collections.emptyList();
         }
+
+        init(options);
 
         if (options.disableTrieLookupPrefilter) {
             policyResourceTrie      = null;
@@ -963,7 +963,7 @@ public class RangerPolicyRepository {
         this.policyEvaluatorsMap = createPolicyEvaluatorsMap();
 
         if(LOG.isDebugEnabled()) {
-            LOG.debug("policy evaluation order: " + this.policyEvaluators.size() + " policies");
+            LOG.debug("policy evaluation order: " + this.policyEvaluators != null ? this.policyEvaluators.size() : 0 + " policies");
 
             int order = 0;
             for(RangerPolicyEvaluator policyEvaluator : this.policyEvaluators) {
@@ -972,7 +972,7 @@ public class RangerPolicyRepository {
                 LOG.debug("policy evaluation order: #" + (++order) + " - policy id=" + policy.getId() + "; name=" + policy.getName() + "; evalOrder=" + policyEvaluator.getEvalOrder());
             }
 
-            LOG.debug("dataMask policy evaluation order: " + this.dataMaskPolicyEvaluators.size() + " policies");
+            LOG.debug("dataMask policy evaluation order: " + this.dataMaskPolicyEvaluators != null ? this.dataMaskPolicyEvaluators.size() : 0 + " policies");
             order = 0;
             for(RangerPolicyEvaluator policyEvaluator : this.dataMaskPolicyEvaluators) {
                 RangerPolicy policy = policyEvaluator.getPolicy();
@@ -980,7 +980,7 @@ public class RangerPolicyRepository {
                 LOG.debug("dataMask policy evaluation order: #" + (++order) + " - policy id=" + policy.getId() + "; name=" + policy.getName() + "; evalOrder=" + policyEvaluator.getEvalOrder());
             }
 
-            LOG.debug("rowFilter policy evaluation order: " + this.rowFilterPolicyEvaluators.size() + " policies");
+            LOG.debug("rowFilter policy evaluation order: " + this.rowFilterPolicyEvaluators != null ? this.rowFilterPolicyEvaluators.size() : 0 + " policies");
             order = 0;
             for(RangerPolicyEvaluator policyEvaluator : this.rowFilterPolicyEvaluators) {
                 RangerPolicy policy = policyEvaluator.getPolicy();
@@ -988,7 +988,7 @@ public class RangerPolicyRepository {
                 LOG.debug("rowFilter policy evaluation order: #" + (++order) + " - policy id=" + policy.getId() + "; name=" + policy.getName() + "; evalOrder=" + policyEvaluator.getEvalOrder());
             }
 
-            LOG.debug("audit policy evaluation order: " + this.auditPolicyEvaluators.size() + " policies");
+            LOG.debug("audit policy evaluation order: " + this.auditPolicyEvaluators != null ? this.auditPolicyEvaluators.size() : 0 + " policies");
             order = 0;
             for(RangerPolicyEvaluator policyEvaluator : this.auditPolicyEvaluators) {
                 RangerPolicy policy = policyEvaluator.getPolicy();
