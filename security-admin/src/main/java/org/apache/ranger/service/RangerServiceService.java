@@ -17,14 +17,7 @@
 
 package org.apache.ranger.service;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.google.common.base.Joiner;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,7 +38,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Joiner;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Service
 @Scope("singleton")
@@ -108,9 +107,9 @@ public class RangerServiceService extends RangerServiceServiceBase<XXService, Ra
 		for(XXServiceConfigMap svcConfMap : svcConfigMapList) {
 			String configValue = svcConfMap.getConfigvalue();
 			
-			if(StringUtils.equalsIgnoreCase(svcConfMap.getConfigkey(), ServiceDBStore.CONFIG_KEY_PASSWORD)) {
-				configValue = ServiceDBStore.HIDDEN_PASSWORD_STR;
-			}
+//			if(StringUtils.equalsIgnoreCase(svcConfMap.getConfigkey(), ServiceDBStore.CONFIG_KEY_PASSWORD)) {
+//				configValue = ServiceDBStore.HIDDEN_PASSWORD_STR;
+//			}
 			configs.put(svcConfMap.getConfigkey(), configValue);
 		}
 		vService.setConfigs(configs);
